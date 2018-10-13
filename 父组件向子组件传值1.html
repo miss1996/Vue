@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{msg}} 
+        <test v-bind:par="msg"></test>
+    </div>
+
+   
+    <script>
+
+        //父组件向子组件传值:因为子组件默认是无法访问父组件中的数据的.所以需要通过v-bind 属性绑定的形式,在props数组来定义一个变量,把props中的变量把变量传递到子组件中,那样子组件中就有props数组中的变量了,然后通过访问变量来实现父组件向子组件中传值.然而props数组中的值是只读的,不能修改的,一旦修改就会报错
+
+
+        Vue.component('test', {
+            template:'<h3 @click="chenga">这是子组件----{{par}}</h3>',
+            props:['par'],
+            methods:{
+                chenga(){
+                    this.par = '被修改了的值'
+                }
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'这是父组件要传递给子组件的值'
+            },
+            methods:{},
+        })
+    </script>
+</body>
+</html>

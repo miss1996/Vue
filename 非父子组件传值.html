@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+       <zf></zf>
+       <hr>
+       <gy></gy>
+    </div>
+    <script>
+        var bus = new Vue()   //创建一个事件总线
+        Vue.component('zf',{
+            template:"<div><p>我是三弟张飞</p><button>飞哥</button><h2>{{msg1}}</h2></div>",
+            data:function(){
+                return {
+                    msg1:'吾乃翼得是也'
+                }
+            },
+            created () {
+                bus.$on('taoyuan',(data) => {
+                    console.log(data)
+                    this.msg1 = data
+                })  //通过事件总线订阅
+            }
+        })
+        Vue.component('gy',{
+            template:'<div><p>我是二哥关羽</p><button @click="callzf">羽哥</button></div>',
+            data(){
+                return {
+                    msg2:'吾乃关二爷是也'
+                }
+            },
+            methods:{
+                callzf(){ //通过事件总线发布
+                    bus.$emit('taoyuan',this.msg2)
+                }
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+            },
+        })
+    </script>
+</body>
+</html>

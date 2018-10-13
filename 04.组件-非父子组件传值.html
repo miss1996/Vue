@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <zf></zf>
+        <hr>
+        <gy></gy>
+    </div>
+
+    <script>
+        // 3. 非父子组件传递数据 发布者-订阅 加事件总线
+        var bus = new Vue() // 事件总线
+        var zf = {
+            template: '<div><p>我是三弟张飞</p><button>飞哥</button><h2>{{msg1}}</h2></div>',
+            data: function () {
+                return {
+                    msg1: '吾乃翼得是也'
+                }
+            },
+            created() {
+                var that = this
+                bus.$on('taoyuan', function (data) {
+                    that.msg1 = data
+                    console.log(that, this)
+                }) // 通过事件总线订阅
+            }
+        }
+        var gy = {
+            template: '<div><p>我是二哥关羽</p><button @click="callzf">羽哥</button></div>',
+            data: function () {
+                return {
+                    msg2: '吾乃关二爷是也'
+                }
+            },
+            methods: {
+                callzf() {
+                    bus.$emit('taoyuan', this.msg2) // 通过事件总线发布
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+            },
+            components: {
+                zf,
+                gy
+            }
+        })
+    </script>
+</body>
+
+</html>

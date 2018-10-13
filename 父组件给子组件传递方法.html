@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{datamsgFormSon}}
+        <test @func="show"></test>
+    </div>
+
+    <script>
+        Vue.component('test', {
+            template:'<div><h1>这是子组件</h1><input text="button" value="这是子组件中的按钮--点击它可以触发父组件传递过来的func方法" @click="myclick"></div>',
+            data(){
+                return {
+                    msg:{ name:'小孩儿', age: 10 }
+                }
+            },
+            methods:{
+                myclick(){
+                    this.$emit('func', this.msg)
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                datamsgFormSon:''
+            },
+            methods:{
+                show(data){
+                    console.log(data)
+                    this.datamsgFormSon = data
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <zf></zf>
+
+        <hr>
+        
+        <gy></gy>
+    </div>
+
+    <script>
+        var bus = new Vue()
+        Vue.component('zf', {
+            template:'<div><p>吾乃张飞是也</p><input type="button" value="飞哥" @click="callzf"><h2>{{ msg1 }}</h2></div>',
+           data(){
+               return {
+                   msg1:'吾乃翼得是也'
+               }
+           },
+           created () {
+               var that = this
+               bus.$on('taoyuan', (data) => {
+                   console.log(data)
+                   that.msg1 = data
+               })
+           },
+           methods:{
+               callzf(){
+                   bus.$emit('bei', this.msg1)
+               }
+           }
+        })
+        
+        Vue.component('gy', {
+            template:'<div><p>吾乃关羽是也</p><input type="button" value="羽哥" @click="callgy" ><h2>{{ msg2 }}</h2></div>',
+            data(){
+                return {
+                    msg2:'吾乃关二爷是也'
+                }
+            },
+            created(){
+                bus.$on('bei',(str) => {
+                    this.msg2 = str
+                })
+            },
+            methods:{
+                callgy(){
+                    bus.$emit('taoyuan', this.msg2)
+                }
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+
+            },
+        })
+    </script>
+</body>
+</html>
