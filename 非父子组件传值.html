@@ -23,9 +23,10 @@
                 }
             },
             created () {
-                bus.$on('taoyuan',(data) => {
-                    console.log(data)
-                    this.msg1 = data
+                var that = this
+                bus.$on('taoyuan',function(data){
+                    console.log(that,this)
+                    that.msg1 = data
                 })  //通过事件总线订阅
             }
         })

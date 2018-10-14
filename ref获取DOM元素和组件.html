@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang= "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content ="ie=edge">
+    <script src = "./lib/vue-2.4.0.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id ="app">
+        <input type="button" value="按钮" @click="getElenemt" ref="input">
+        <h3 ref="myh3">今天天气是真的差!!!</h3>
+        <hr>
+        <login ref="mybtn"></login>
+    </div>
+<script>
+    Vue.component('login', {
+        template:'<h1>登录组件</h1>',
+        data(){
+            return {
+                msg:'data中的数据'
+            }
+        },
+        methods:{
+            show(){
+               console.log('调用了show方法')
+            }
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            getElenemt(){
+                console.log(this.$refs.myh3.innerText)
+                console.log(this.$refs.input)
+
+                console.log(this.$refs.mybtn.msg)
+
+                console.log(this.$refs.mybtn.show())
+            }
+        }
+    })
+</script>
+</body>
+</html>

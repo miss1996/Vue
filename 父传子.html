@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3> {{ msg }}</h3>
+        <test v-bind:par="msg"></test>
+    </div>
+
+    <script>
+        //通过v-bind 绑定属性的方式绑定一个props数组中的属性,然后在通过调用props属性访问父组件中data中的值,然后再再子组件中使用props中的属性赋值父组件中data中的值
+        Vue.component('test', {
+             template:'<h1>这是子组件 --- {{ par }}</h1>',
+             props:['par'],
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'这是父组件'
+            }
+        })
+    </script>
+</body>
+</html>

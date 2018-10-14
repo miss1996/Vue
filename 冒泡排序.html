@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //[15,58,16,3,96,3,47,58,64,55,100]
+        var str = [15,58,16,3,96,3,47,58,64,55,100];
+        var count = 0;
+        for(var i = 0; i < str.length -1; i++){
+            count++
+            for(var j = 0; j < str.length -1-i; j++){
+                count++
+                if(str[j] < str[j + 1]) {
+                    var tmp = str[j]
+                    str[j] = str[j + 1]
+                    str[j+1] = tmp
+                }
+            }
+        }
+        console.log(str);
+        console.log(count)
+    </script>
+</body>
+</html>
